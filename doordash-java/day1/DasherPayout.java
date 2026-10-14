@@ -10,13 +10,35 @@ public class DasherPayout {
     // Total paid minutes after merging overlapping/adjacent intervals.
     public static int totalActiveMinutes(List<Interval> intervals) {
         // TODO: validate, sort by start, sweep-merge, sum lengths.
-        return 0;
+        if(intervals == null || intervals.isEmpty()) {
+            return 0;
+        }
+        List<Interval> mutableIntervals = new ArrayList<>(intervals);
+        mutableIntervals.sort(Comparator.comparingInt(Interval::start));
+        int totalMinutes = 0;
+        int currentStart = mutableIntervals.get(0).start();
+        int currentEnd = mutableIntervals.get(0).end();
+        for (int i = 1; i < mutableIntervals.size(); i++) {
+            Interval interval = mutableIntervals.get(i);
+            if(interval.start() > interval.end()) {
+               continue; // skip invalid intervals
+            }
+            if (interval.start() <= currentEnd) {
+                currentEnd = Math.max(currentEnd, interval.end());
+            } else {
+                totalMinutes += currentEnd - currentStart;
+                currentStart = interval.start();
+                currentEnd = interval.end();
+            }
+        }
+        totalMinutes += currentEnd - currentStart;
+        return totalMinutes;
     }
 
     // Payout for one dasher at the given hourly rate.
     public static double calculatePayout(List<Interval> intervals, double ratePerHour) {
         // TODO: use totalActiveMinutes.
-        return 0.0;
+        return totalActiveMinutes(intervals) * ratePerHour / 60.0;
     }
 
     // Harder version: payout per dasher.

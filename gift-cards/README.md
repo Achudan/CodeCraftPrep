@@ -29,6 +29,7 @@ and leave every card untouched.
 | File | What it is |
 |---|---|
 | `GiftCards.java` | **Exercise.** TODOs for you; tests fail until you fill them. |
+| `GiftCardsAttempt.java` | **Your attempt.** Clean slate — implement here, then copy your methods into the exercise file to run the tests. |
 | `GiftCardsSolution.java` | **Reference.** Complete, all tests pass. |
 
 ## Run

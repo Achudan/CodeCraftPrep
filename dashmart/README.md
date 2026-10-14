@@ -32,6 +32,7 @@ belongs to the mart that appears **earliest in row-major order**.
 | File | What it is |
 |---|---|
 | `DashMart.java` | **Exercise.** TODOs for you; tests fail until you fill them. |
+| `DashMartAttempt.java` | **Your attempt.** Clean slate — implement here, then copy your methods into the exercise file to run the tests. |
 | `DashMartSolution.java` | **Reference.** Complete, all tests pass. |
 
 ## Run

@@ -31,6 +31,7 @@ count as `changed`. All three lists are sorted so the answer is deterministic.
 | File | What it is |
 |---|---|
 | `MenuTreeDiff.java` | **Exercise.** TODOs for you; tests fail until you fill them. |
+| `MenuTreeDiffAttempt.java` | **Your attempt.** Clean slate — implement here, then copy your methods into the exercise file to run the tests. |
 | `MenuTreeDiffSolution.java` | **Reference.** Complete, all tests pass. |
 
 ## Run

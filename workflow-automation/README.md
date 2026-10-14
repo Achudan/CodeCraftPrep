@@ -30,6 +30,7 @@ New refund rules must be addable **without touching existing rules**.
 | File | What it is |
 |---|---|
 | `WorkflowAutomation.java` | **Exercise.** TODOs for you; tests fail until you fill them. |
+| `WorkflowAutomationAttempt.java` | **Your attempt.** Clean slate — implement here, then copy your methods into the exercise file to run the tests. |
 | `WorkflowAutomationSolution.java` | **Reference.** Complete, all tests pass. |
 
 ## Run

@@ -1,6 +1,6 @@
 import java.util.*;
 
-// DoorDash CodeCraft Day 4 (part A) — Closest DashMart (Java starter)
+// Closest DashMart (exercise — fill the TODOs, make the tests pass)
 // Run: javac DashMart.java && java DashMart
 // Implement the TODOs. Tests in main() should all pass when you're done.
 // Focus of the drill: (1) multi-source BFS on a grid with blocked cells,

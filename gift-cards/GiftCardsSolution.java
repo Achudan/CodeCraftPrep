@@ -1,13 +1,9 @@
 import java.util.*;
 
-// DoorDash CodeCraft Day 3 — Aggregate Gift Card Data (Java starter)
-// Run: javac GiftCards.java && java GiftCards
-// Implement the TODOs. Tests in main() should all pass when you're done.
-// Focus of the drill: (1) clean entity/manager design, (2) aggregates per user,
-// (3) one payment that can span multiple cards, in issued order (FIFO).
-// Prep reconstruction from the locked plan notes, not a verbatim CodeZym spec —
-// confirm the real method signatures at the CodeZym link before the interview.
-public class GiftCards {
+// Aggregate Gift Card Data — REFERENCE SOLUTION (all tests pass).
+// Run: javac GiftCardsSolution.java && java GiftCardsSolution
+// The exercise version is GiftCards.java (same tests, TODOs for you).
+public class GiftCardsSolution {
 
     public record User(String id, String name) {}
 
@@ -54,21 +50,24 @@ public class GiftCards {
     // Aggregated remaining balance across all of the user's cards.
     // Unknown user -> 0.0.
     public double totalBalance(String userId) {
-        // TODO: sum balances over cardsOf(userId)
-        return 0.0;
+        double sum = 0.0;
+        for (GiftCard c : cardsOf(userId)) sum += c.balance;
+        return sum;
     }
 
     // Aggregated amount spent so far = sum(initialAmount - balance).
     // Unknown user -> 0.0.
     public double totalSpent(String userId) {
-        // TODO: sum (initialAmount - balance) over the user's cards
-        return 0.0;
+        double sum = 0.0;
+        for (GiftCard c : cardsOf(userId)) sum += c.initialAmount - c.balance;
+        return sum;
     }
 
     // How many of the user's cards still hold money (balance > 0).
     public int activeCardCount(String userId) {
-        // TODO: count cards with balance > 0
-        return 0;
+        int n = 0;
+        for (GiftCard c : cardsOf(userId)) if (c.balance > 0) n++;
+        return n;
     }
 
     // Pays `amount` for the user, drawing from cards in issued order (FIFO):
@@ -77,15 +76,23 @@ public class GiftCards {
     // balance is less than `amount` (or amount <= 0), return false and leave
     // every card balance unchanged.
     public boolean pay(String userId, double amount) {
-        // TODO: check total first, then sweep cards in order deducting
-        // min(card.balance, remaining) until remaining is 0.
-        return false;
+        // All-or-nothing: check the total FIRST, before touching any card.
+        if (amount <= 0 || totalBalance(userId) < amount) return false;
+        double remaining = amount;
+        for (GiftCard c : cardsByUser.getOrDefault(userId, List.of())) {
+            if (remaining <= 0) break;
+            double take = Math.min(c.balance, remaining);
+            c.balance -= take;
+            remaining -= take;
+        }
+        return true;
     }
 
     // System-wide aggregate: remaining balance across every user.
     public double totalRemainingAllUsers() {
-        // TODO: sum totalBalance over all known users
-        return 0.0;
+        double sum = 0.0;
+        for (String userId : users.keySet()) sum += totalBalance(userId);
+        return sum;
     }
 
     private static boolean anyFail = false;
@@ -97,7 +104,7 @@ public class GiftCards {
     }
 
     public static void main(String[] args) {
-        GiftCards svc = new GiftCards();
+        GiftCardsSolution svc = new GiftCardsSolution();
         User achu = svc.createUser("Achu");
         User sam = svc.createUser("Sam");
 

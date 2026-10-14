@@ -1,6 +1,6 @@
 import java.util.*;
 
-// DoorDash CodeCraft Day 5 (part B) — Longest Increasing Path in a Grid (Java starter)
+// Longest Increasing Path in a Grid (exercise — fill the TODOs, make the tests pass)
 // Run: javac LongestIncreasingPath.java && java LongestIncreasingPath
 // Implement the TODOs. Tests in main() should all pass when you're done.
 // Focus of the drill: (1) DFS + memoization (the naive DFS re-explores and

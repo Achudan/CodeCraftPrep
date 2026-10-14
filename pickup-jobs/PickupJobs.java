@@ -1,6 +1,6 @@
 import java.util.*;
 
-// DoorDash CodeCraft Day 5 (part A) — Longest Sequence of Pickup Jobs (Java starter)
+// Longest Sequence of Pickup Jobs (exercise — fill the TODOs, make the tests pass)
 // Run: javac PickupJobs.java && java PickupJobs
 // Implement the TODOs. Tests in main() should all pass when you're done.
 // Focus of the drill: (1) a clean DP table, (2) reconstructing the actual

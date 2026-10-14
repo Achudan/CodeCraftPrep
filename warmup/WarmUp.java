@@ -1,6 +1,6 @@
 import java.util.*;
 
-// DoorDash CodeCraft Day 7 — Taper-day warm-up (Java starter)
+// Taper-day warm-up (exercise — fill the TODOs, make the tests pass)
 // Run: javac WarmUp.java && java WarmUp
 // This is Thursday's single easy run: Dasher Payout, easy version, ~30 min.
 // It should feel almost automatic by now. If anything feels hard here, that's

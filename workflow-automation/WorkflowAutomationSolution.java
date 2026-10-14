@@ -1,11 +1,9 @@
 import java.util.*;
 
-// DoorDash CodeCraft Day 2 — Workflow Automation Engine (Java starter)
-// Run: javac WorkflowAutomation.java && java WorkflowAutomation
-// Implement the TODOs. Tests in main() should all pass when you're done.
-// Focus of the drill: (1) one guarded state-transition method,
-// (2) refund rules as a Strategy, not a big if/else in the order code.
-public class WorkflowAutomation {
+// Workflow Automation Engine — REFERENCE SOLUTION (all tests pass).
+// Run: javac WorkflowAutomationSolution.java && java WorkflowAutomationSolution
+// The exercise version is WorkflowAutomation.java (same tests, TODOs for you).
+public class WorkflowAutomationSolution {
 
     public enum OrderStatus { OPEN, DELIVERED, CANCELLED }
 
@@ -39,16 +37,17 @@ public class WorkflowAutomation {
     // Suggested thresholds to state out loud: <=10 min -> 0, 11-30 -> 50, >30 -> 100.
     public static final class LateDeliveryRefund implements RefundPolicy {
         @Override public int refundPercent(Order order, RefundContext ctx) {
-            // TODO: tiered rule based on ctx.lateMinutes()
-            return 0;
+            int late = ctx.lateMinutes();
+            if (late <= 10) return 0;
+            if (late <= 30) return 50;
+            return 100;
         }
     }
 
     // Part 2b: cancel before prep started -> 95%.
     public static final class CancelBeforePrepRefund implements RefundPolicy {
         @Override public int refundPercent(Order order, RefundContext ctx) {
-            // TODO: 95 if !ctx.prepStarted(), else your stated fallback (suggest 0)
-            return 0;
+            return ctx.prepStarted() ? 0 : 95;
         }
     }
 
@@ -85,14 +84,15 @@ public class WorkflowAutomation {
     // Rules: only OPEN orders can move; DELIVERED/CANCELLED are closed and
     // ignore further status updates; unknown id -> false, no crash.
     public boolean updateStatus(String orderId, OrderStatus newStatus) {
-        // TODO: single guard in one place. Do not scatter status checks elsewhere.
-        return false;
+        Order o = orders.get(orderId);
+        if (o == null || o.status != OrderStatus.OPEN) return false;
+        o.status = newStatus;
+        return true;
     }
 
     // Refund amount = order.amount * policy percent / 100.0
     public static double refundAmount(Order order, RefundPolicy policy, RefundContext ctx) {
-        // TODO: use policy.refundPercent(...)
-        return 0.0;
+        return order.amount * policy.refundPercent(order, ctx) / 100.0;
     }
 
     private static boolean anyFail = false;
@@ -104,7 +104,7 @@ public class WorkflowAutomation {
     }
 
     public static void main(String[] args) {
-        WorkflowAutomation svc = new WorkflowAutomation();
+        WorkflowAutomationSolution svc = new WorkflowAutomationSolution();
         User u = svc.createUser("Achu");
         Restaurant r = svc.createRestaurant("Testaurant");
 

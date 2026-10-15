@@ -36,7 +36,23 @@ public class ClosestDashMart {
     public List<Integer> getClosestDashMartDistances(List<String> city, List<String> locations) {
         // TODO: parse the city, run one multi-source BFS from all DashMarts,
         // then answer each location with a table lookup (-1 when outside the city).
-        return new ArrayList<>();
+        char[][] grid = parseCity(city);
+        dashMarts = findDashMarts(grid);
+        runBfsFromAllDashMarts(grid, dashMarts);
+
+        List<Integer> result = new ArrayList<>();
+        for (String location: locations) {
+            int[] loc = parseLocation(location);
+            int r = loc[0];
+            int c = loc[1];
+            if (isInsideCity(r, c)) {
+                result.add(distance[r][c]);
+            } else {
+                result.add(-1);
+            }
+        }
+
+        return result;
     }
 
     public List<Integer> findDashMartServingMaximumCustomers(List<String> city) {
@@ -46,14 +62,54 @@ public class ClosestDashMart {
         return new ArrayList<>();
     }
 
+    /** Finds DashMarts in row-major order. */
+    List<int[]> findDashMarts(char[][] cityGrid) {
+        dashMarts = new ArrayList<>();
+        for (int r = 0; r < cityGrid.length; r++) {
+            for (int c = 0; c < cityGrid[r].length; c++) {
+                if (cityGrid[r][c] == 'D') {
+                    dashMarts.add(new int[]{r, c});
+                }
+            }
+        }
+        return dashMarts;
+    }
+
     /** One BFS that starts from all DashMarts at the same time. Fills distance[][] and owner[][]. */
-    void runBfsFromAllDashMarts() {
+    void runBfsFromAllDashMarts(char[][] grid, List<int[]> dashMarts) {
         // TODO: enqueue every DashMart at distance 0 (row-major order, so ties
         // go to the smaller location), then expand level by level.
+        boolean[][] visited = new boolean[rows][cols];
+        distance = new int[rows][cols]; 
+        Queue<int[]> queue = new ArrayDeque<>();
+        for(int[] dashMart: dashMarts) {
+            queue.add(dashMart);
+        }
+
+        while(!queue.isEmpty()) {
+            int[] current = queue.poll();
+            int r = current[0];
+            int c = current[1];
+            visited[r][c] = true;
+
+            if(grid[r][c] == 'D') {
+                distance[r][c] = 0;
+            }
+            for(int[] dir: directions) {
+                int newR = r + dir[0];
+                int newC = c + dir[1];
+                if(isInsideCity(newR, newC) && !visited[newR][newC] && grid[newR][newC] != 'X') {
+                    queue.add(new int[]{newR, newC});
+                    visited[newR][newC] = true;
+                    distance[newR][newC] = distance[r][c] + 1;
+                }
+            }
+
+        }
     }
 
     /** Converts rows like "X|.|D" into a 2-D grid of cells. */
-    void parseCity(List<String> city) {
+    char[][] parseCity(List<String> city) {
         rows = city.size();
         cols = (rows == 0) ? 0 : city.get(0).split("\\|").length;
         grid = new char[rows][cols];
@@ -64,6 +120,7 @@ public class ClosestDashMart {
                 grid[r][c] = cells[c].trim().charAt(0);
             }
         }
+        return grid;
     }
 
     boolean isInsideCity(int r, int c) {

@@ -28,7 +28,6 @@ jobs, which makes the answer deterministic.
 | File | What it is |
 |---|---|
 | `PickupJobs.java` | **Exercise.** TODOs for you; tests fail until you fill them. |
-| `PickupJobsAttempt.java` | **Your attempt.** Clean slate — implement here, then copy your methods into the exercise file to run the tests. |
 | `PickupJobsSolution.java` | **Reference.** Complete, all tests pass. |
 
 ## Run

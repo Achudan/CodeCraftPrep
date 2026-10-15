@@ -29,7 +29,6 @@ increasing path you can walk with 4-directional moves.
 | File | What it is |
 |---|---|
 | `LongestIncreasingPath.java` | **Exercise.** TODOs for you; tests fail until you fill them. |
-| `LongestIncreasingPathAttempt.java` | **Your attempt.** Clean slate — implement here, then copy your methods into the exercise file to run the tests. |
 | `LongestIncreasingPathSolution.java` | **Reference.** Complete, all tests pass. |
 
 ## Run

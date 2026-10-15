@@ -20,7 +20,6 @@ your review target — but you should still finish in ~30 minutes.
 | File | What it is |
 |---|---|
 | `WarmUp.java` | **Exercise.** TODOs for you; tests fail until you fill them. |
-| `WarmUpAttempt.java` | **Your attempt.** Clean slate — implement here, then copy your methods into the exercise file to run the tests. |
 | `WarmUpSolution.java` | **Reference.** Complete, all tests pass. |
 
 ## Run

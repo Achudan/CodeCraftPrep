@@ -23,7 +23,6 @@ unsorted, or touch each other), merge them and compute:
 | File | What it is |
 |---|---|
 | `DasherPayout.java` | **Exercise.** TODOs for you; tests fail until you fill them. |
-| `DasherPayoutAttempt.java` | **Your attempt.** Clean slate — implement here, then copy your methods into the exercise file to run the tests. |
 | `DasherPayoutSolution.java` | **Reference.** Complete, all tests pass. Run it first to see the shape of the answer, then close it and do the exercise. |
 
 ## Run

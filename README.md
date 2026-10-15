@@ -6,6 +6,8 @@ Rebuilt from the real problem set in
 
 Every problem is a Java exercise class with **TODO stubs and test cases — no solutions**.
 Implement the TODOs; the `main` test harness tells you when you pass.
+Each problem folder also has its own `README.md` with the full problem write-up
+(the real tutorial where one exists, the problem statement otherwise).
 
 ## Problems (20)
 
